@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoteHub - FAQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/dark-mode.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1e293b; }
+        .active-nav { color: #2563eb; position: relative; }
+        .active-nav::after { content: ''; position: absolute; bottom: -24px; left: 0; width: 100%; height: 2px; background: #2563eb; }
+        .faq-card { transition: all 0.3s ease; border: 1px solid #f1f5f9; }
+        .faq-card.open { border-color: #e2e8f0; box-shadow: 0 4px 20px -2px rgba(0,0,0,0.05); }
+        .content-hidden { display: none; }
+        .rotate-180 { transform: rotate(180deg); }
+        /* Hide scrollbar for category pills on mobile */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="border-b border-slate-100 sticky top-0 bg-white z-50">
+        <div class="container mx-auto px-4 lg:px-12 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 p-1.5 rounded-lg text-white"><i data-lucide="shield-check" class="w-6 h-6"></i></div>
+                <div>
+                    <h1 class="text-xl font-bold leading-none tracking-tight">VoteHub</h1>
+                    <p class="text-[10px] text-slate-400 uppercase font-semibold">Online Voting System</p>
+                </div>
+            </div>
+
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-500">
+                <a href="/index.html" class="hover:text-blue-600">Home</a>
+                <a href="/admin-login.html" class="hover:text-blue-600">Administrator</a>
+                <a href="/hiw.html" class="hover:text-blue-600">How It Works</a>
+                <a href="/candidates.html" class="hover:text-blue-600">Candidates</a>
+                <a href="/results.html" class="hover:text-blue-600">Results</a>
+                <a href="/faqs.html" class="active-nav">FAQ</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <i id="theme-toggle" data-lucide="moon" class="w-5 h-5 text-slate-500 cursor-pointer"></i>
+                <button id="loginBtn" class="px-6 py-2 text-blue-600 font-semibold border border-blue-100 rounded-full hover:bg-blue-50 transition" onclick="window.location.href='login.html'">Login</button>
+                <button id="registerBtn" class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 shadow-lg shadow-blue-200 transition" onclick="window.location.href='register.html'">Register</button>
+                <div class="relative">
+                <div id="profileAvatar" class="hidden w-10 h-10 rounded-full bg-blue-600 items-center justify-center cursor-pointer overflow-hidden">
+                <span id="avatarInitial" class="text-white font-bold text-sm hidden"></span>
+                <img id="avatarImage" src="" alt="Profile" class="w-full h-full object-cover hidden">
+                </div>
+
+               <div id="profileDropdown" class="hidden absolute right-0 top-full mt-3 w-48 bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-50">
+               <div class="px-4 py-2 border-b border-slate-100">
+               <p id="dropdownUserName" class="text-sm font-semibold text-slate-800 truncate"></p>
+               </div>
+               <button id="logoutBtn" class="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 transition font-medium">Logout</button>
+               </div>
+               </div>
+        </div>
+    </header>
+
+    <main class="py-12 lg:py-20">
+        <!-- HERO SECTION -->
+        <section class="container mx-auto px-4 text-center max-w-3xl">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-xs font-bold mb-6">
+                <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Help Center
+            </div>
+            <h2 class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-6">
+                Frequently Asked <span class="text-blue-600">Questions</span>
+            </h2>
+            <p class="text-slate-500 leading-relaxed mb-10">
+                Everything you need to know about voting, security, and results on VoteHub.<br class="hidden md:block">
+                Can't find an answer? Reach out to our support team.
+            </p>
+
+            <!-- SEARCH BAR -->
+            <div class="relative max-w-2xl mx-auto mb-12">
+                <i data-lucide="search" class="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 w-5 h-5"></i>
+                <input type="text" placeholder="Search for a question..." 
+                    class="w-full pl-14 pr-6 py-5 bg-white border border-slate-100 rounded-full shadow-sm focus:ring-2 focus:ring-blue-100 focus:border-blue-300 outline-none transition">
+            </div>
+
+            <!-- FILTERS -->
+            <div class="flex items-center justify-center gap-3 mb-16 overflow-x-auto no-scrollbar pb-2">
+                <button class="px-6 py-2.5 bg-blue-600 text-white rounded-full text-sm font-bold shadow-lg shadow-blue-100 flex items-center gap-2">
+                    <i data-lucide="layout-grid" class="w-4 h-4"></i> All
+                </button>
+                <button class="px-6 py-2.5 border border-slate-100 text-slate-500 rounded-full text-sm font-bold hover:bg-slate-50 transition flex items-center gap-2">
+                    <i data-lucide="user-plus" class="w-4 h-4"></i> Voting
+                </button>
+                <button class="px-6 py-2.5 border border-slate-100 text-slate-500 rounded-full text-sm font-bold hover:bg-slate-50 transition flex items-center gap-2">
+                    <i data-lucide="shield-check" class="w-4 h-4"></i> Security
+                </button>
+                <button class="px-6 py-2.5 border border-slate-100 text-slate-500 rounded-full text-sm font-bold hover:bg-slate-50 transition flex items-center gap-2">
+                    <i data-lucide="users" class="w-4 h-4"></i> Eligibility
+                </button>
+                <button class="px-6 py-2.5 border border-slate-100 text-slate-500 rounded-full text-sm font-bold hover:bg-slate-50 transition flex items-center gap-2">
+                    <i data-lucide="bar-chart-2" class="w-4 h-4"></i> Results
+                </button>
+            </div>
+
+            <!-- FAQ LIST -->
+            <div class="max-w-3xl mx-auto space-y-4 text-left">
+                <!-- Item 1 (Open) -->
+                <div class="faq-card open rounded-3xl p-6 lg:p-8 bg-white cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-md text-[10px] font-bold tracking-widest uppercase">Voting</span>
+                            <h4 class="font-bold text-slate-800 text-sm lg:text-base">How do I cast my vote on VoteHub?</h4>
+                        </div>
+                        <i data-lucide="chevron-up" class="w-5 h-5 text-blue-600 transition-transform"></i>
+                    </div>
+                    <div class="mt-6 text-sm text-slate-500 leading-relaxed border-t border-slate-50 pt-6">
+                        After signing in with your Voter ID, go to the Candidates page, review each candidate, and select your choice. Confirm your selection on the review screen and submit. You will receive an on-screen confirmation and a receipt once your vote is recorded.
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="faq-card rounded-3xl p-6 lg:p-8 bg-white cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-md text-[10px] font-bold tracking-widest uppercase">Voting</span>
+                            <h4 class="font-bold text-slate-800 text-sm lg:text-base">Can I change my vote after submitting it?</h4>
+                        </div>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+                    </div>
+                    <div class="mt-6 text-sm text-slate-500 leading-relaxed border-t border-slate-50 pt-6 content-hidden">
+                        To ensure integrity, once a vote is submitted and encrypted in the system, it cannot be changed. Please review your choice carefully before final submission.
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="faq-card rounded-3xl p-6 lg:p-8 bg-white cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-md text-[10px] font-bold tracking-widest uppercase">Security</span>
+                            <h4 class="font-bold text-slate-800 text-sm lg:text-base">How does VoteHub keep my vote secure and private?</h4>
+                        </div>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+                    </div>
+                    <div class="mt-6 text-sm text-slate-500 leading-relaxed border-t border-slate-50 pt-6 content-hidden">
+                        We use end-to-end encryption and blockchain-inspired verification methods to ensure your identity is decoupled from your specific vote choice.
+                    </div>
+                </div>
+
+                <!-- ... Repeat for other items as needed -->
+                
+                <!-- CONTACT CTA -->
+                <div class="bg-blue-50/50 rounded-3xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between gap-6 mt-12 border border-blue-100/30">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-blue-200">
+                            <i data-lucide="help-circle" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800">Still have questions?</h4>
+                            <p class="text-xs text-slate-500">Our support team is here to help you.</p>
+                        </div>
+                    </div>
+                    <button class="px-8 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-100 hover:bg-blue-700 transition">Contact Support</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-100 pt-16 pb-8 mt-12">
+        <div class="container mx-auto px-4 lg:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            <div class="space-y-6">
+                <div class="flex items-center gap-2">
+                    <div class="bg-blue-600 p-1 rounded text-white"><i data-lucide="shield-check" class="w-4 h-4"></i></div>
+                    <span class="text-xl font-bold">VoteHub</span>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed max-w-xs">A secure, transparent and reliable platform for modern elections.</p>
+                <div class="flex gap-4">
+                    <div class="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 cursor-pointer hover:bg-blue-50 hover:text-blue-600 transition"><i data-lucide="globe" class="w-4 h-4"></i></div>
+                    <div class="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 cursor-pointer hover:bg-blue-50 hover:text-blue-600 transition"><i data-lucide="at-sign" class="w-4 h-4"></i></div>
+                    <div class="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 cursor-pointer hover:bg-blue-50 hover:text-blue-600 transition"><i data-lucide="message-circle" class="w-4 h-4"></i></div>
+                    <div class="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 cursor-pointer hover:bg-blue-50 hover:text-blue-600 transition"><i data-lucide="share-2" class="w-4 h-4"></i></div>
+                </div>
+            </div>
+            <div>
+                <h5 class="font-bold text-sm mb-6">Quick Links</h5>
+                <ul class="text-xs text-slate-500 space-y-4">
+                    <li><a href="#" class="hover:text-blue-600">Home</a></li>
+                    <li><a href="#" class="hover:text-blue-600">Features</a></li>
+                    <li><a href="#" class="hover:text-blue-600">How It Works</a></li>
+                    <li><a href="#" class="hover:text-blue-600">Candidates</a></li>
+                    <li><a href="#" class="hover:text-blue-600">Results</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold text-sm mb-6">Resources</h5>
+                <ul class="text-xs text-slate-500 space-y-4">
+                    <li><a href="#" class="hover:text-blue-600">Help Center</a></li>
+                    <li><a href="#" class="hover:text-blue-600">Tutorials</a></li>
+                    <li><a href="#" class="hover:text-blue-600">Blog</a></li>
+                    <li><a href="#" class="hover:text-blue-600">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-blue-600">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold text-sm mb-6 uppercase tracking-wider text-slate-400">Newsletter</h5>
+                <p class="text-xs text-slate-500 mb-6">Subscribe to get updates about elections and platforms.</p>
+                <div class="flex bg-slate-50 rounded-xl p-1.5 border border-slate-100">
+                    <input type="email" placeholder="Enter your email" class="bg-transparent pl-4 flex-grow text-xs outline-none">
+                    <button class="bg-blue-600 p-2.5 rounded-lg text-white shadow-lg shadow-blue-100 hover:bg-blue-700 transition">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 lg:px-12 pt-8 border-t border-slate-50 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+            <p>© 2024 VOTEHUB. ALL RIGHTS RESERVED.</p>
+            <p>MADE WITH <span class="text-red-500">❤️</span> FOR A BETTER DEMOCRACY</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Accordion Toggle Function
+        function toggleFaq(card) {
+            const content = card.querySelector('div:last-child');
+            const icon = card.querySelector('i[data-lucide^="chevron"]');
+            const isOpen = card.classList.contains('open');
+
+            // Close other cards (optional logic for exclusive accordion)
+            // document.querySelectorAll('.faq-card').forEach(c => { ... });
+
+            if (isOpen) {
+                card.classList.remove('open');
+                content.classList.add('content-hidden');
+                icon.style.transform = 'rotate(0deg)';
+                icon.classList.remove('text-blue-600');
+                icon.classList.add('text-slate-400');
+            } else {
+                card.classList.add('open');
+                content.classList.remove('content-hidden');
+                icon.style.transform = 'rotate(180deg)';
+                icon.classList.add('text-blue-600');
+                icon.classList.remove('text-slate-400');
+            }
+        }
+    </script>
+    <script src="/nav-auth.js"></script>
+    <script src="/dark-mode.js"></script>
+</body>
+</html>

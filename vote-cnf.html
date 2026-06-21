@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoteHub - Submission Success</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/dark-mode.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+        }
+        .success-card {
+            background-color: #f1f5f9; /* Matches the light gray background in image */
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+    <script>
+        
+    </script>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-[520px] flex flex-col items-center">
+        
+        <!-- Header Logo -->
+        <div class="flex flex-col items-center mb-8">
+            <div class="bg-[#2563eb] p-1.5 rounded-lg mb-1">
+                <i data-lucide="shield-check" class="text-white w-6 h-6"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-[#1e293b]">VoteHub</h1>
+        </div>
+
+        <!-- Success Card -->
+        <div class="success-card w-full rounded-[2rem] p-8 md:p-12 text-center flex flex-col items-center shadow-sm">
+            
+            <h2 class="text-3xl md:text-4xl font-extrabold text-[#1e293b] leading-tight mb-8">
+                Vote Successfully Submitted!
+            </h2>
+
+            <!-- Success Shield Icon -->
+            <div class="relative mb-10">
+                <div class="bg-[#2563eb] w-24 h-24 md:w-28 md:h-28 rounded-3xl rotate-45 flex items-center justify-center shadow-xl shadow-blue-200">
+                    <!-- Correcting rotation for the icon inside -->
+                    <i data-lucide="check" class="text-white w-12 h-12 md:w-16 md:h-16 -rotate-45 stroke-[3]"></i>
+                </div>
+                <!-- Subtle Shield outline effect using icon library if needed, 
+                     but standard Lucide shield works well -->
+            </div>
+
+            <div class="space-y-6 mb-10">
+                <p class="text-slate-600 text-base md:text-lg leading-relaxed px-2">
+                    Thank you for your civic participation! Your ballot has been received and is now being securely processed. We appreciate you making your voice heard.
+                </p>
+
+                <p class="text-[#1e293b] font-semibold text-base md:text-lg tracking-tight">
+                    Confirmation ID: <span class="font-bold">VH-CONF-SIMPLE-001</span>
+                </p>
+            </div>
+
+            <!-- Action Button -->
+            <button onclick="window.location.href='index.html'" class="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-4 px-8 rounded-xl font-bold flex items-center justify-center gap-3 transition-all group">
+                Back to Homepage
+                <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+            </button>
+
+            <!-- Footer Message -->
+            <div class="mt-8 flex items-center gap-2 text-slate-500 text-xs md:text-sm font-medium">
+                <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                Your data is encrypted and secure.
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+lucide.createIcons();
+
+// ✅ UPDATE hasVoted when this page loads (vote was just cast)
+(function() {
+    // Get current user from whichever storage has it
+    const raw = sessionStorage.getItem('currentUser') || localStorage.getItem('currentUser');
+    if (!raw) return;
+
+    const currentUser = JSON.parse(raw);
+    currentUser.hasVoted = true;
+
+    // Update session
+    if (sessionStorage.getItem('currentUser')) {
+        sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+    } else {
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    }
+
+    // Update users array
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const updatedUsers = users.map(u => u.id === currentUser.id ? { ...u, hasVoted: true } : u);
+    localStorage.setItem('users', JSON.stringify(updatedUsers));
+})();
+
+// rest of your existing JS...
+document.querySelector('button').addEventListener('mousedown', function() {
+    this.style.transform = 'scale(0.98)';
+});
+document.querySelector('button').addEventListener('mouseup', function() {
+    this.style.transform = 'scale(1)';
+});
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Optional: Simple JS to handle button click
+        document.querySelector('button').addEventListener('mousedown', function() {
+            this.style.transform = 'scale(0.98)';
+        });
+        document.querySelector('button').addEventListener('mouseup', function() {
+            this.style.transform = 'scale(1)';
+        });
+    </script>
+    <script src="/dark-mode.js"></script>
+</body>
+</html>

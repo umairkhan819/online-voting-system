@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoteHub | System Administration Login</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/admin-login.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFDFF; /* Subtle off-white background */
+        }
+        .login-card {
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            border: 1px solid #E5E7EB;
+        }
+        .input-field {
+            background-color: #F9FAFB;
+            transition: all 0.2s ease;
+        }
+        .input-field:focus-within {
+            background-color: #FFFFFF;
+            border-color: #2563EB;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+        /* Gray palette (separate from slate) */
+html.dark .text-gray-900,
+html.dark .text-gray-700,
+html.dark .text-gray-600 {
+    color: #e2e8f0 !important;
+}
+html.dark .text-gray-500,
+html.dark .text-gray-400 {
+    color: #94a3b8 !important;
+}
+html.dark .border-gray-200,
+html.dark .border-gray-300 {
+    border-color: #334155 !important;
+}
+html.dark .placeholder-gray-400::placeholder {
+    color: #64748b !important;
+}
+
+/* This page's custom classes */
+html.dark .login-card {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+}
+html.dark .input-field {
+    background-color: #0f172a !important;
+}
+html.dark .input-field:focus-within {
+    background-color: #1e293b !important;
+}
+
+/* Hardcoded hex heading on this page */
+html.dark h1.text-\[\#1E293B\],
+html.dark .text-\[\#1E293B\] {
+    color: #f1f5f9 !important;
+}
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- Top Logo -->
+<div class="flex flex-col items-center mb-8">
+    <div class="bg-blue-600 p-1.5 rounded-lg mb-1 relative">
+        <i data-lucide="shield-check" class="text-white w-6 h-6"></i>
+    </div>
+    <h1 class="text-2xl font-bold text-[#1E293B]">VoteHub</h1>
+    <i id="theme-toggle" data-lucide="moon" class="w-5 h-5 text-gray-400 cursor-pointer mt-3"></i>
+</div>
+    
+
+    <!-- Login Container -->
+    <div class="login-card bg-white rounded-[20px] w-full max-w-[480px] p-8 md:p-12">
+        
+        <!-- Header Section -->
+        <div class="flex flex-col items-center text-center mb-10">
+            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-6">
+                <div class="bg-blue-600 p-2.5 rounded-full shadow-lg shadow-blue-200">
+                    <i data-lucide="shield" class="text-white w-6 h-6"></i>
+                </div>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-bold text-[#1D4ED8] mb-2">System Administration Login</h2>
+            <p class="text-gray-500 text-sm md:text-base">Access the central command panel.</p>
+        </div>
+
+        <!-- Form -->
+        <form id="loginForm" class="space-y-6">
+            <!-- Username -->
+            <div>
+                <label class="block text-sm font-bold text-gray-900 mb-2">Username</label>
+                <div class="input-field flex items-center border border-gray-200 rounded-xl px-4 py-3.5">
+                    <i data-lucide="user" class="text-gray-400 w-5 h-5 mr-3"></i>
+                    <input id="username" type="text" placeholder="Enter admin username..." class="bg-transparent w-full outline-none text-gray-700 placeholder-gray-400">
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label class="block text-sm font-bold text-gray-900 mb-2">Password</label>
+                <div class="input-field flex items-center border border-gray-200 rounded-xl px-4 py-3.5">
+                    <i data-lucide="lock" class="text-gray-400 w-5 h-5 mr-3"></i>
+                    <input type="password" id="password" placeholder="Enter admin password..." class="bg-transparent w-full outline-none text-gray-700 placeholder-gray-400">
+                    <button type="button" onclick="togglePassword()" class="text-gray-400 hover:text-gray-600 transition ml-2">
+                        <i data-lucide="eye" id="eye-icon" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Extras -->
+            <div class="flex items-center justify-between">
+                <label class="flex items-center cursor-pointer group">
+                    <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 transition cursor-pointer">
+                    <span class="ml-2 text-sm text-gray-600 group-hover:text-gray-900">Remember Me</span>
+                </label>
+                <a href="#" class="text-sm font-semibold text-blue-600 hover:text-blue-700 transition">Forgot Password?</a>
+            </div>
+
+            <p id="errorMsg"></p>
+            <!-- Sign In Button -->
+            <button type="submit" class="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white py-4 rounded-xl font-bold flex items-center justify-center transition-all shadow-lg shadow-blue-100 group">
+                Sign In
+                <i data-lucide="arrow-right" class="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+            </button>
+        </form>
+
+        <!-- Footer Disclaimer -->
+        <p class="mt-10 text-center text-[13px] leading-relaxed text-gray-500 px-4">
+            Use of this portal is restricted to authorized personnel only.<br>
+            All access and activities are logged and monitored.
+        </p>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Password visibility toggle
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                // Update icon to eye-off (requires re-initialization)
+                eyeIcon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.setAttribute('data-lucide', 'eye');
+            }
+            lucide.createIcons();
+        }
+    </script>
+    <script src="/dark-mode.js"></script>
+</body>
+</html>
